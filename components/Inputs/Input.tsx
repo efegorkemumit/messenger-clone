@@ -16,7 +16,7 @@ const Input: React.FC<InputProps>= ({label, id, errors ,
     register ,disabled, required, type})=> {
   return (
     <div>
-
+ 
         <label>{label}</label>
         <input></input>
         
