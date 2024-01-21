@@ -1,7 +1,7 @@
-import AuthForm from "@/components/site/AuthForm";
+import AuthForm from "@/app/(site)/components/site/AuthForm";
 import Image from "next/image";
 
-export default function Home() {
+const Auth =()=> {
   return (
    <div className="flex min-h-full bg-gray-200 py-12 px-6 flex-col">
       <div className="w-full mx-auto max-w-md">
@@ -18,3 +18,4 @@ export default function Home() {
    </div>
   );
 }
+export default Auth
