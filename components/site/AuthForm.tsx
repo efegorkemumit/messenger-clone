@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import Input from '../Inputs/Input';
 import { useForm , FieldValues } from 'react-hook-form';
+import Button from '../Buttons/Button';
 
 type Variant = 'LOGIN' | 'REGISTER';
 function AuthForm() {
@@ -35,6 +36,31 @@ function AuthForm() {
           disabled={isLoading} 
           type='text'
            ></Input>
+
+        <Input id="email" 
+          label='Email Address' 
+          required
+          register={register}
+          errors={errors}
+          disabled={isLoading} 
+          type='email'
+           ></Input>
+
+        <Input id="password" 
+          label='Enter Password' 
+          required
+          register={register}
+          errors={errors}
+          disabled={isLoading} 
+          type='password'
+           ></Input>
+
+           <div>
+            <Button children="save"></Button>
+
+
+           </div>
+
 
 
 
