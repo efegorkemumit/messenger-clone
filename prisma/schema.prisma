@@ -20,9 +20,14 @@ model User{
   createdAt        DateTime @default(now())
   updateAt        DateTime @updatedAt
 
+  conversationIds String[] @db.ObjectId
+  conversations Conversation[] @relation(fields: [conversationIds], references: [id])
+
+  seenMessageIds String[]  @db.ObjectId
+  seenMessage Message[] @relation("Seen", fields: [seenMessageIds], references: [id])
+
   accounts Account[]
-
-
+  messages Message[]
 }
 model Account{
   id                 String @id @default(auto()) @map("_id")  @db.ObjectId
@@ -51,6 +56,14 @@ model Conversation{
   name            String?
   isGroup         Boolean?
 
+  userIds String[] @db.ObjectId
+  users User[] @relation(fields: [userIds], references: [id])
+
+
+  messagesIds String[] @db.ObjectId
+  messages Message[]
+
+
 
 
 
@@ -61,6 +74,14 @@ model Message{
   image           String?
   createdAt        DateTime @default(now())
 
+  seenIds String[] @db.ObjectId
+  seen User[] @relation("Seen", fields: [seenIds], references: [id])
+
+  conversationId String[] @db.ObjectId
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete:Cascade)
+
+  senderId String[] @db.ObjectId
+  sender User @relation(fields: [senderId], references: [id], onDelete:Cascade)
 
 
 }
