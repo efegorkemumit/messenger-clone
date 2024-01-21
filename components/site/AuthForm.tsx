@@ -3,6 +3,9 @@ import React, { useCallback, useState } from 'react'
 import Input from '../Inputs/Input';
 import { useForm , FieldValues, SubmitHandler } from 'react-hook-form';
 import Button from '../Buttons/Button';
+import { FaGoogle, FaGithub } from "react-icons/fa";
+import AuthSocialMediaButton from '../Buttons/AuthSocialMediaButton';
+
 
 type Variant = 'LOGIN' | 'REGISTER';
 function AuthForm() {
@@ -94,6 +97,26 @@ function AuthForm() {
            <div className='mt-8'>
 
             <div className='w-full border-t border-gray-500'></div>
+
+            <div className='relative flex justify-center text-sm'>
+            <span className='px-2 py-2'>  Or contunie With </span> 
+            </div>
+
+            <div className='flex gap-3'>
+                  <AuthSocialMediaButton
+                  icon={FaGithub}>
+                    
+                  </AuthSocialMediaButton>
+
+
+                  <AuthSocialMediaButton
+                  icon={FaGoogle}>
+                    
+                  </AuthSocialMediaButton>
+
+            </div>
+
+           
 
 
            </div>
