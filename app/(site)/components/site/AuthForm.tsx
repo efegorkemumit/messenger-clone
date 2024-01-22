@@ -1,12 +1,12 @@
 'use client';
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Input from '../Inputs/Input';
 import { useForm , FieldValues, SubmitHandler } from 'react-hook-form';
 import Button from '../Buttons/Button';
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import AuthSocialMediaButton from '../Buttons/AuthSocialMediaButton';
 import toast, { Toaster } from 'react-hot-toast';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
@@ -18,6 +18,14 @@ function AuthForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+
+  const session = useSession();
+
+  useEffect(()=>{
+    if(session?.status ==='authenticated'){
+      router.push('/conversations')
+    }
+  },[session?.status, router])
 
   const {
     register,
@@ -92,7 +100,6 @@ function AuthForm() {
       
       <div className='bg-slate-100 shadow-xl rounded-xl px-10 py-6'>
 
-        <Toaster/>
 
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
 
