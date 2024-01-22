@@ -5,6 +5,10 @@ import { useForm , FieldValues, SubmitHandler } from 'react-hook-form';
 import Button from '../Buttons/Button';
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import AuthSocialMediaButton from '../Buttons/AuthSocialMediaButton';
+import toast, { Toaster } from 'react-hot-toast';
+import { signIn } from 'next-auth/react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 
 type Variant = 'LOGIN' | 'REGISTER';
@@ -12,6 +16,8 @@ function AuthForm() {
 
   const [variant, SetVariant] = useState<Variant>('LOGIN');
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const {
     register,
@@ -27,12 +33,48 @@ function AuthForm() {
 
   const onSubmit : SubmitHandler<FieldValues> = (data) =>{
 
+    setIsLoading(true);
+
     if(variant =="REGISTER"){
-      console.log("register")
+      axios.post("/api/register", data).then(()=>
+      signIn('credentials', {
+        ...data,
+        redirect:false,
+      }))
+      .then((calback)=>{
+        if(calback?.error){
+          toast.error("Invalid Credentials")
+        }
+
+        if(calback?.ok){
+         router.push('/conversations')
+        }
+      })
+      .catch(()=> toast.error("Something went wrong"))
+      .finally(()=>setIsLoading(false));
+     
+
     }
 
     if(variant =="LOGIN"){
-      console.log("register")
+
+      signIn('credentials', {
+        ...data,
+        redirect:false,
+      })
+      .then((calback)=>{
+        if(calback?.error){
+          toast.error("Invalid Credentials")
+        }
+
+        if(calback?.ok){
+         router.push('/conversations')
+        }
+      })
+      .catch(()=> toast.error("Something went wrong"))
+      .finally(()=>setIsLoading(false));
+    
+
     }
   }
 
@@ -50,7 +92,9 @@ function AuthForm() {
       
       <div className='bg-slate-100 shadow-xl rounded-xl px-10 py-6'>
 
-        <form className='space-y-5'>
+        <Toaster/>
+
+        <form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
 
           {variant === 'REGISTER' &&(
 
