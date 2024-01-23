@@ -9,6 +9,6 @@ const DesktopSidebar: React.FC<DesktopSidebarProps>=({currentUser})=> {
   return (
     <div>DesktopSidebar :  {currentUser?.email}</div>
   )
-}
+} 
 
 export default DesktopSidebar
