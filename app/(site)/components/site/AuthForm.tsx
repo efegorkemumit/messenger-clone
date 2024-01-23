@@ -94,6 +94,23 @@ function AuthForm() {
     }
 
   },[variant])
+
+  const socialAction = (action:string)=>{
+    setIsLoading(true);
+
+    signIn(action, {redirect:false}) .then((calback)=>{
+      if(calback?.error){
+        toast.error("Invalid Credentials")
+      }
+
+      if(calback?.ok){
+       router.push('/conversations')
+      }
+    })
+
+    .finally(()=>setIsLoading(false));
+
+  }
   
   return (
     <div className='mt-10 mx-auto w-full max-w-md'>
@@ -155,13 +172,13 @@ function AuthForm() {
 
             <div className='flex gap-3'>
                   <AuthSocialMediaButton
-                  icon={FaGithub}>
+                  icon={FaGithub} onClick={()=>socialAction('github')}>
                     
                   </AuthSocialMediaButton>
 
 
                   <AuthSocialMediaButton
-                  icon={FaGoogle}>
+                  icon={FaGoogle} onClick={()=>socialAction('google')}>
                     
                   </AuthSocialMediaButton>
 
