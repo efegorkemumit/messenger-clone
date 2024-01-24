@@ -23,7 +23,7 @@ const UserBox:  React.FC<UserBoxProps>=({data})=> {
 
             </div>
 
-
+ 
         </div>
 
 
