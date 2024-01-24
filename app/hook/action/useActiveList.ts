@@ -1,4 +1,4 @@
-import { create } from "domain";
+import { create } from "zustand";
 
 
 interface ActiveListStore{

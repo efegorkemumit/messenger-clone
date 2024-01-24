@@ -4,6 +4,7 @@ import useRoutes from '@/app/hook/action/useRoutes'
 import { User } from '@prisma/client'
 import React from 'react'
 import DesktopItem from './DesktopItem'
+import Avatar from '../Avatar'
 
 interface DesktopSidebarProps{
     currentUser : User
@@ -27,7 +28,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps>=({currentUser})=> {
     lg:inset-y-0
     justify-between'>
 
-        <nav>    
+        <nav className='mt-5 flex flex-col justify-between'>    
 
             <ul role='list' className='flex flex-col justify-between'>
                 {routes.map((item)=>(
@@ -57,7 +58,12 @@ const DesktopSidebar: React.FC<DesktopSidebarProps>=({currentUser})=> {
 
 
 
-        <nav>    DesktopSidebar :  {currentUser?.email} </nav>
+        <nav className='mt-5 flex flex-col items-center justify-between'>   
+        
+        <Avatar user={currentUser}></Avatar>
+         
+         
+         </nav>
 
         
         
