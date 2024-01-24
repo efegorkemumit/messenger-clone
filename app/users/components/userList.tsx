@@ -2,6 +2,7 @@
 
 import { User } from '@prisma/client'
 import React from 'react'
+import UserBox from './userBox';
 
 
 interface UserListProps{
@@ -36,7 +37,9 @@ bg-white
 
             {items.map((item)=>(
 
-                <div>aaa</div>
+               <UserBox key={item.id} data={item}>
+
+               </UserBox>
 
 
             ))}
