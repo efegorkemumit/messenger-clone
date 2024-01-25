@@ -1,14 +1,33 @@
 import Avatar from '@/components/Avatar';
 import { User } from '@prisma/client'
-import React from 'react'
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import React, { useCallback, useState } from 'react'
 
 interface UserBoxProps{
     data : User;
 }
 
 const UserBox:  React.FC<UserBoxProps>=({data})=> {
+
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleClick = useCallback(()=>{
+        setIsLoading(true);
+
+        axios.post('/api/conversations', {userId: data.id})
+        .then((data)=>{
+            router.push(`/conversations/${data.data.id}`)
+        })
+        .finally(()=> setIsLoading(false));
+
+
+    }, [data, router])
+
+
   return (
-    <div className='w-full relative flex items-center space-x-3
+    <div onClick={handleClick} className='w-full relative flex items-center space-x-3
     bg-white p-3 rounded-lg transition hover:bg-slate-100 cursor-pointer'>
         
         <Avatar user={data.image}></Avatar>

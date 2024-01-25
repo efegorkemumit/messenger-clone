@@ -85,7 +85,7 @@ export async function POST(request:Request) {
         }
 
 
-        const newConversation = await.prismadb.conversation.create({
+        const newConversation = await prismadb.conversation.create({
             data:{
                 users:{
                     connect:[
