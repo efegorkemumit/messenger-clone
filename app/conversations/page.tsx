@@ -1,9 +1,19 @@
+'use client'
 import EmptyState from '@/components/EmptyState'
 import React from 'react'
+import useConversation from '../hook/action/useConversation'
+import clsx from 'clsx';
 
 function page() {
+
+  const {isOpen} = useConversation();
   return (
-    <div>page
+    <div className={clsx(
+      'lg:pl-80 h-full lg:block',
+      isOpen ? 'block':'hidden'
+
+
+    )}><EmptyState></EmptyState>
 
 
     </div>
