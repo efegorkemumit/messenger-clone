@@ -4,6 +4,7 @@ import { FullConversationType } from '@/app/type'
 import { User } from '@prisma/client';
 import React, { useState } from 'react'
 import ConversationBox from './conversationBox';
+import { MdOutlineGroupAdd } from 'react-icons/md';
 
 
 interface ConversationListProps{
@@ -35,11 +36,16 @@ bg-white
     '>
         <div className='px-5'>
 
-            <div className='flex-col'>
+            <div className='flex justify-between mb-4 pt-4'>
 
                 <div className='text-2xl font-semibold py-4'>
-                    People
+                    {title}
 
+                </div>
+                <div className='p-5 bg-gray-100 
+                rounded-full transition cursor-pointer text-gray-800 hover:opacity-65 '>
+
+                  <MdOutlineGroupAdd size={20}/>
                 </div>
             </div>
 
