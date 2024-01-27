@@ -2,7 +2,8 @@ import useotherUser from '@/app/hook/action/useOtherUser';
 import { FullConversationType } from '@/app/type'
 import Avatar from '@/components/Avatar';
 import clsx from 'clsx';
-import React from 'react'
+import { useRouter } from 'next/navigation';
+import React, { useCallback } from 'react'
 
 interface ConversationBoxProps{
     data:FullConversationType,
@@ -15,8 +16,16 @@ const ConversationBox : React.FC<ConversationBoxProps>=({
 }) =>{
 
   const otherUser = useotherUser(data);
+
+  const router = useRouter();
+
+  const handleClick = useCallback(()=>{
+    router.push(`/conversations/${data.id}`);
+  }, [data, router]);
+
+
   return (
-    <div className={clsx(`w-full relative flex items-center space-x-3
+    <div onClick={handleClick} className={clsx(`w-full relative flex items-center space-x-3
     p-3 hover:bg-slate-200 rounded-xl cursor-pointer `)}>
 
 
