@@ -29,7 +29,7 @@ const ConversationList: React.FC<ConversationListProps> =({
     inset-y-0 
     pb-20
     lg:left-20
-    lg:w-80
+    lg:w-60
     lg:block
     overflow-y-auto
     border-r

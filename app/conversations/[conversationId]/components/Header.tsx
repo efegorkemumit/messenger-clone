@@ -5,8 +5,9 @@ import Avatar from '@/components/Avatar'
 import AvatarGroup from '@/components/AvatarGroup'
 import { Conversation, User } from '@prisma/client'
 import Link from 'next/link'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { HiChevronLeft, HiEllipsisHorizontal } from 'react-icons/hi2'
+import Profile from './Profile'
 
 
 interface HeaderProps{
@@ -19,7 +20,7 @@ const Header:React.FC<HeaderProps>=({conversation})=> {
     const otherUser= useotherUser(conversation)
     const  {members} = useActiveList();
     const isActive = members.indexOf(otherUser?.email) !== -1;
-
+    const [profileOpen, setProfileOpen] = useState(false)
 
     const statusText = useMemo(()=>{
       if(conversation.isGroup){
@@ -29,6 +30,12 @@ const Header:React.FC<HeaderProps>=({conversation})=> {
     }, [conversation, isActive])
 
   return (
+    <>
+
+    <Profile data={conversation} isOpen={profileOpen}
+    onClose={()=>setProfileOpen(false)} ></Profile>
+
+
     <div className='bg-white w-full flex border-b-2 shadow-md
     px-3 py-4 justify-between items-center'>
       <div className='flex gap-3 items-center'>
@@ -57,13 +64,16 @@ const Header:React.FC<HeaderProps>=({conversation})=> {
 
         </div>
 
-        <HiEllipsisHorizontal  className=' cursor-pointer text-sky-500 hover:text-sky-700'
+        <HiEllipsisHorizontal
+        onClick={()=>setProfileOpen(true)}  className=' cursor-pointer text-sky-500 hover:text-sky-700'
         size={25}>
 
         </HiEllipsisHorizontal>
 
       
       </div>
+
+      </>
   )
 }
 
