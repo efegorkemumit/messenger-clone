@@ -5,6 +5,8 @@ import { User } from '@prisma/client';
 import React, { useState } from 'react'
 import ConversationBox from './conversationBox';
 import { MdOutlineGroupAdd } from 'react-icons/md';
+import useConversation from '@/app/hook/action/useConversation';
+import clsx from 'clsx';
 
 
 interface ConversationListProps{
@@ -19,9 +21,11 @@ const ConversationList: React.FC<ConversationListProps> =({
 })=> {
 
   const [items, setItems] = useState(initalItems);
+
+  const {isOpen} =useConversation();
   return (
-    <aside className='
-    fixed 
+
+    <aside className={clsx(`fixed 
     inset-y-0 
     pb-20
     lg:left-20
@@ -29,11 +33,9 @@ const ConversationList: React.FC<ConversationListProps> =({
     overflow-y-auto
     border-r
     border-gray-200
-    block
-    w-full
-bg-white
-    
-    '>
+bg-white`,
+isOpen ? 'hidden':'block w-full left-0')}
+    >
         <div className='px-5'>
 
             <div className='flex justify-between mb-4 pt-4'>
