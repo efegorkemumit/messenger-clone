@@ -7,6 +7,7 @@ import { Conversation, User } from '@prisma/client';
 import { Modak } from 'next/font/google';
 import React, { Fragment, useMemo, useState } from 'react'
 import { IoClose, IoTrash } from 'react-icons/io5';
+import DeleteModal from './DeleteModal';
 
 interface ProfileProps{
     isOpen:boolean;
@@ -28,10 +29,10 @@ const Profile:React.FC<ProfileProps>=({data, isOpen, onClose})=> {
   return (
 
     <>
-    <Modal
+    <DeleteModal
     isOpen={confirmOpen}
     onClose={()=>setConfirmOpen(false)}
-    ></Modal>
+    ></DeleteModal>
     
     <Transition.Root show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={onClose}>
