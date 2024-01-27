@@ -1,9 +1,11 @@
 import useotherUser from '@/app/hook/action/useOtherUser';
 import Avatar from '@/components/Avatar';
 import AvatarGroup from '@/components/AvatarGroup';
+import Modal from '@/components/modals/Modal';
 import { Dialog, Transition } from '@headlessui/react';
 import { Conversation, User } from '@prisma/client';
-import React, { Fragment, useMemo } from 'react'
+import { Modak } from 'next/font/google';
+import React, { Fragment, useMemo, useState } from 'react'
 import { IoClose, IoTrash } from 'react-icons/io5';
 
 interface ProfileProps{
@@ -18,10 +20,19 @@ const Profile:React.FC<ProfileProps>=({data, isOpen, onClose})=> {
 
     const otherUser = useotherUser(data);
 
+    const [confirmOpen, setConfirmOpen] = useState(false);
+
     const title = useMemo(()=>{
         return data.name || otherUser.name;
     },[data.name, otherUser.name]);
   return (
+
+    <>
+    <Modal
+    isOpen={confirmOpen}
+    onClose={()=>setConfirmOpen(false)}
+    ></Modal>
+    
     <Transition.Root show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={onClose}>
             <Transition.Child
@@ -81,7 +92,7 @@ const Profile:React.FC<ProfileProps>=({data, isOpen, onClose})=> {
 
                                     </div>
 
-                                    <div className=' cursor-pointer flex flex-col gap-5 my-8   items-center justify-center'>
+                                    <div onClick={()=>setConfirmOpen(true)} className=' cursor-pointer flex flex-col gap-5 my-8   items-center justify-center'>
                                         <div className='text-center justify-center mt-12  items-center'>
                                         <IoTrash size={35}></IoTrash>
                                         </div>
@@ -158,6 +169,8 @@ const Profile:React.FC<ProfileProps>=({data, isOpen, onClose})=> {
             </div>
         </Dialog>
     </Transition.Root>
+
+    </>
   )
 }
 
