@@ -1,7 +1,12 @@
 'use client'
+import useActiveList from '@/app/hook/action/useActiveList'
 import useotherUser from '@/app/hook/action/useOtherUser'
+import Avatar from '@/components/Avatar'
+import AvatarGroup from '@/components/AvatarGroup'
 import { Conversation, User } from '@prisma/client'
-import React from 'react'
+import Link from 'next/link'
+import React, { useMemo } from 'react'
+import { HiChevronLeft, HiEllipsisHorizontal } from 'react-icons/hi2'
 
 
 interface HeaderProps{
@@ -12,9 +17,53 @@ interface HeaderProps{
 const Header:React.FC<HeaderProps>=({conversation})=> {
 
     const otherUser= useotherUser(conversation)
+    const  {members} = useActiveList();
+    const isActive = members.indexOf(otherUser?.email) !== -1;
+
+
+    const statusText = useMemo(()=>{
+      if(conversation.isGroup){
+        return `${conversation.users.length} members`;
+      }
+      return isActive ? 'Active' : 'Offline'
+    }, [conversation, isActive])
 
   return (
-    <div>Header</div>
+    <div className='bg-white w-full flex border-b-2 shadow-md
+    px-3 py-4 justify-between items-center'>
+      <div className='flex gap-3 items-center'>
+        <Link className='lg:hidden block text-sky-500 hover:text-sky-700' href='/conversations'>
+          <HiChevronLeft size={18}></HiChevronLeft>
+        </Link>
+
+        {conversation.isGroup? (
+          <AvatarGroup users={conversation.users}></AvatarGroup>
+        ):
+        (
+          <Avatar user={otherUser}></Avatar>
+        )}
+
+        <div className='flex flex-col'>
+          <div>{conversation.name || otherUser.name}</div>
+
+          <div>
+            {statusText}
+          </div>
+
+        </div>
+
+       
+
+
+        </div>
+
+        <HiEllipsisHorizontal  className=' cursor-pointer text-sky-500 hover:text-sky-700'
+        size={25}>
+
+        </HiEllipsisHorizontal>
+
+      
+      </div>
   )
 }
 
