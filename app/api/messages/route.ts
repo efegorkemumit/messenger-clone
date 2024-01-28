@@ -15,14 +15,14 @@ export async function POST(request:Request) {
         const { message, image, conversationId} = body;
 
         if(!currentUser?.id || !currentUser?.email){
-            return new NextResponse("Unautorized": {status: 401})
+            return new NextResponse("Unautorized", {status: 401})
         }
 
         const newMessage = await prismadb.message.create({
             include:{
                 seen: true,
-                sender: true;
-            }
+                sender: true,
+            },
             data:{
                 body:message,
                 image: image,
@@ -69,7 +69,7 @@ export async function POST(request:Request) {
 
 
         UpdateConversation.users.map((user)=>{
-            pusherServer.trigger(user.email!, 'conversation:update',{
+            pusherServer.trigger(user.email!, 'conversations:update',{
                 id:conversationId,
                 message:  [lastMessage]
             })
@@ -80,7 +80,8 @@ export async function POST(request:Request) {
 
 
     }catch(error){
-        return new NextResponse("Error": {status: 401})
+        console.log(error)
+        return new NextResponse("Error", {status: 401})
 
     }
     

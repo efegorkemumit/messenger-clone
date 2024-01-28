@@ -39,7 +39,7 @@ function Form() {
     border-t-2 flex items-center gap-2
     w-full bg-white'>
         
-        <form onSubmit={handleSubmit(onsubmit)} className='w-full gap-2 items-center flex'>
+        <form onSubmit={handleSubmit(onSubmit)} className='w-full gap-2 items-center flex'>
 
             <MessagesInput id='message' placeHolder='Write a message'
             required errors={errors} register={register}>
