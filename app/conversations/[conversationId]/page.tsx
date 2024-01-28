@@ -2,6 +2,7 @@ import getConversationById from '@/app/hook/getConversationById';
 import EmptyState from '@/components/EmptyState';
 import React from 'react'
 import Header from './components/Header';
+import Form from './components/Form';
 
 
 interface IParams{
@@ -29,6 +30,8 @@ const ChatId=async({params}: {params:IParams})=> {
     <div className='lg:pl-80 h-full'>
        <div className='h-full flex flex-col'>
          <Header conversation={conversation}></Header>
+
+         <Form></Form>
        </div>
       
     </div>
