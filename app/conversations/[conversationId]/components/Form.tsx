@@ -46,7 +46,7 @@ function Form() {
 
 
   return (
-    <div className='py-4 px-4
+    <div className='py-4 px-4 pb-16 lg:pb-5
     border-t-2 flex items-center gap-2
     w-full bg-white'>
 

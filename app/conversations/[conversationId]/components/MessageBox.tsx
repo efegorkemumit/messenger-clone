@@ -32,6 +32,10 @@ const  MessageBox : React.FC<MessageBoxProps>=({
      isOwn ? 'bg-sky-500 text-white' : 'bg-gray-800',
      data.image? 'rounded-md p-0': 'rounded-full py-2 px-3'
      );
+     const seenList = (data.seen || [])
+     .filter((user)=>user.email !== data?.sender?.email)
+     .map((user)=>user.name)
+     .join(', ');
 
   return (
 
@@ -77,6 +81,15 @@ const  MessageBox : React.FC<MessageBoxProps>=({
 
 
             </div>
+            
+{isLast && isOwn && seenList.length >0 &&(
+
+    <div className='text-xs font-light text-gray-400
+    '>
+        {`Seen by ${seenList}`}
+    </div>
+)}
+
 
    
    
