@@ -1,6 +1,7 @@
 import useotherUser from '@/app/hook/action/useOtherUser';
 import { FullConversationType } from '@/app/type'
 import Avatar from '@/components/Avatar';
+import AvatarGroup from '@/components/AvatarGroup';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import React, { useCallback } from 'react'
@@ -29,7 +30,13 @@ const ConversationBox : React.FC<ConversationBoxProps>=({
     p-3 hover:bg-slate-200 rounded-xl cursor-pointer `)}>
 
 
-      <Avatar user={data}></Avatar>
+      {data.isGroup ?(
+        <AvatarGroup users={data.users}></AvatarGroup>
+
+      ):(
+        <Avatar user={otherUser}></Avatar>
+
+      )}
 
 
       <div className='min-w-0 flex-1'>

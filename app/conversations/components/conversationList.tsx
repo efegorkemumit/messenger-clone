@@ -7,6 +7,7 @@ import ConversationBox from './conversationBox';
 import { MdOutlineGroupAdd } from 'react-icons/md';
 import useConversation from '@/app/hook/action/useConversation';
 import clsx from 'clsx';
+import GroupModal from './GroupModal';
 
 
 interface ConversationListProps{
@@ -22,8 +23,18 @@ const ConversationList: React.FC<ConversationListProps> =({
 
   const [items, setItems] = useState(initalItems);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const {isOpen} =useConversation();
   return (
+    <>
+
+    <GroupModal 
+    onClose={()=>setIsModalOpen(false)} 
+    isOpen={isModalOpen}
+    users={users}>
+
+    </GroupModal>
 
     <aside className={clsx(`fixed 
     inset-y-0 
@@ -45,7 +56,7 @@ isOpen ? 'hidden':'block w-full left-0')}
                     {title}
 
                 </div>
-                <div className='p-5 bg-gray-100 
+                <div onClick={()=>setIsModalOpen(true)} className='p-5 bg-gray-100 
                 rounded-full transition cursor-pointer text-gray-800 hover:opacity-65 '>
 
                   <MdOutlineGroupAdd size={20}/>
@@ -69,6 +80,7 @@ isOpen ? 'hidden':'block w-full left-0')}
         
         
         </aside>
+        </>
   )
 }
 
