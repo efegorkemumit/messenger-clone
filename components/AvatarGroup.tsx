@@ -26,7 +26,7 @@ const AvatarGroup:React.FC<AvatarGroupProps> =({ users= []}) => {
   return (
     <div className='relative h-11 w-11'>
       {slicedUsers.map((user, index) => (
-    <div key={user.id} className={clsx(`absolute rounded-full overflow-hidden`, PositionMap[index as keyof typeof PositionMap])}>
+    <div key={user.id} className={clsx(` h-[24px] w-[24px] absolute rounded-full overflow-hidden`, PositionMap[index as keyof typeof PositionMap])}>
         <Image fill src={user?.image || '/images/placeholder.jpg'} alt='Avatar Group' />
     </div>
 ))}

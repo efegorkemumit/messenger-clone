@@ -48,12 +48,7 @@ const GroupModal: React.FC<GroupModalProps>=({onClose, users, isOpen})=> {
             router.refresh();
             onClose();
         })
-        .catch((error)=>{
-            console.log("aa" , error);
-
-
-
-        })
+        .catch(()=>toast.error('something wrong'))
         .finally(()=>setIsLoading(false));
 
 

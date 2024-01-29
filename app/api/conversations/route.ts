@@ -25,27 +25,18 @@ export async function POST(request:Request) {
             return new NextResponse("Invalid Data", {status:400});
         }
 
-        if(isGroup){
-
+        if (isGroup) {
             const newConversation = await prismadb.conversation.create({
-                data:{
+                data: {
                     name,
                     isGroup,
-                    users:{
-                        connect:[
-                            ...members.map((member:{value:string})=>({
-                                id:member.value
-                            })),
-                            {
-                                id:currentUser.id
-                            }
+                    users: {
+                        connect: [
+                            ...members.map((member: { value: string }) => ({ id: member.value })),
+                            { id: currentUser.id }
                         ]
-                    },
-                    include:{
-                        users:true,
                     }
                 }
-
             });
 
             newConversation.users.forEach((user)=>{
