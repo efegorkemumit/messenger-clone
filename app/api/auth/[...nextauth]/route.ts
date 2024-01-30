@@ -52,14 +52,15 @@ const authOptions: AuthOptions = {
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-}
+  pages:{
+    signIn:'/'
+},
+debug :process.env.NODE_ENV==='development',
+session :{ strategy : 'jwt'},
+jwt:{
+    secret: process.env.NEXTAUTH_JWT_SECRET,
+},
+secret:process.env.NEXTAUTH_SECRET
+};
 
-const handler: NextApiHandler = async (req, res) => {
-  await NextAuth(req, res, authOptions);
-}
-
-export default handler;
+export default NextAuth(authOptions);
