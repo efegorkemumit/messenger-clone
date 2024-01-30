@@ -2,9 +2,10 @@
 
 import useRoutes from '@/app/hook/action/useRoutes'
 import { User } from '@prisma/client'
-import React from 'react'
+import React, { useState } from 'react'
 import DesktopItem from './DesktopItem'
 import Avatar from '../Avatar'
+import SettingsModal from './SettingsModal'
 
 interface DesktopSidebarProps{
     currentUser : User
@@ -13,7 +14,14 @@ interface DesktopSidebarProps{
 const DesktopSidebar: React.FC<DesktopSidebarProps>=({currentUser})=> {
 
     const routes = useRoutes();
+    const [isOpen,  setIsOpen] = useState(false);
   return (
+    <>
+    <SettingsModal currentUser={currentUser} 
+    isOpen={isOpen} onClose={()=>setIsOpen(false)}
+    ></SettingsModal>
+
+
     <div className='hidden
     lg:flex
     lg:flex-col
@@ -60,14 +68,17 @@ const DesktopSidebar: React.FC<DesktopSidebarProps>=({currentUser})=> {
 
         <nav className='mt-5 flex flex-col items-center justify-between'>   
         
+        <div onClick={()=>setIsOpen(true)}>
         <Avatar user={currentUser}></Avatar>
-         
+        </div>
          
          </nav>
 
         
         
     </div>
+
+    </>
   )
 } 
 
