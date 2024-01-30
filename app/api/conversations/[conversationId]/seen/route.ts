@@ -72,7 +72,7 @@ export async function POST(request:Request, {params}:{params: IParams}) {
             return NextResponse.json(conversation);
         }
 
-        await pusherServer.trigger(conversationId!, 'message:update', updatedMessage);
+        await pusherServer.trigger(conversationId!, 'message:update', updatedMesage);
 
         return new NextResponse('success');
     }
