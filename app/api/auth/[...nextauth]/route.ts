@@ -52,13 +52,12 @@ const authOptions: AuthOptions = {
       },
     }),
   ],
-  debug: process.env.NODE_ENV === 'development',
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-};
+}
 
-const handler: NextApiHandler = (req, res) => NextAuth(req, res, authOptions);
+const handler = NextAuth(authOptions);
 
-export default handler;
+export { handler as GET, handler as POST }
