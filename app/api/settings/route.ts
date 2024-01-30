@@ -1,6 +1,5 @@
 import getCurrentuser from '@/app/hook/getCurrentUser'
 import prismadb from '@/app/libs/prismadb'
-import { NextScript } from 'next/document';
 import { NextResponse } from 'next/server';
 
 export async function POST(request:Request) {

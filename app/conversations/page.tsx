@@ -4,7 +4,7 @@ import React from 'react'
 import useConversation from '../hook/action/useConversation'
 import clsx from 'clsx';
 
-function page() {
+const Page=()=> {
 
   const {isOpen} = useConversation();
   return (
@@ -22,4 +22,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

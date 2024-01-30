@@ -98,7 +98,7 @@ const  SettingsModal: React.FC<SettingsModalProps>=({
                 </div>
 
                 <div className='mt-4 flex items-center gap-4'>
-                    <Image width={50} height={50}
+                    <Image alt="a" width={50} height={50}
                     className='rounded-full'
                     src={image || currentUser?.image ||'/images/placeholder.jpg'}>
 
