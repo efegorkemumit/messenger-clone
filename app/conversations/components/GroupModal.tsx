@@ -37,23 +37,20 @@ const GroupModal: React.FC<GroupModalProps>=({onClose, users, isOpen})=> {
 
     const members = watch('members');
 
-    const onSubmit:SubmitHandler<FieldValues> = (data)=>{
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
-
-        axios.post('/api/conversations',{
-            ...data,
-            isGroup:true
+      
+        axios.post('/api/conversations', {
+          ...data,
+          isGroup: true
         })
-        .then(()=>{
-            router.refresh();
-            onClose();
+        .then(() => {
+          router.refresh();
+          onClose();
         })
-        .catch(()=>toast.error('something wrong'))
-        .finally(()=>setIsLoading(false));
-
-
-
-    }
+        .catch(() => toast.error('Something went wrong!'))
+        .finally(() => setIsLoading(false));
+      }
 
 
 

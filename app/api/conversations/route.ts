@@ -1,13 +1,11 @@
-import getCurrentuser from '@/app/hook/getCurrentUser'
+import getCurrentuser from '@/app/hook/getCurrentUser';
 import prismadb from '@/app/libs/prismadb'
 import { pusherServer } from '@/app/libs/pusher'
 import { NextResponse } from 'next/server';
 
+export async function POST(request: Request) {
 
-export async function POST(request:Request) {
-
-    try{
-        
+    try {
         const currentUser = await getCurrentuser();
         const body = await request.json();
         const {
@@ -15,14 +13,14 @@ export async function POST(request:Request) {
             isGroup,
             members,
             name
-        }= body;
+        } = body;
 
-        if(!currentUser?.id || !currentUser.email){
-            return new NextResponse("Unauthorized", {status:400});
+        if (!currentUser?.id || !currentUser.email) {
+            return new NextResponse("Unauthorized", { status: 400 });
         }
 
-        if(isGroup && (!members || members.length < 2 || !name )){
-            return new NextResponse("Invalid Data", {status:400});
+        if (isGroup && (!members || members.length < 2 || !name)) {
+            return new NextResponse("Invalid Data", { status: 400 });
         }
 
         if (isGroup) {
@@ -39,76 +37,64 @@ export async function POST(request:Request) {
                 }
             });
 
-            newConversation.users.forEach((user)=>{
-
-                if(user.email){
-                    pusherServer.trigger(user.email, 'conversation:new', newConversation)
-                }
-            })
-
-
-
+            if (newConversation && newConversation.users) {
+                newConversation.users.forEach((user) => {
+                    if (user.email) {
+                        pusherServer.trigger(user.email, 'conversation:new', newConversation);
+                    }
+                });
+            }
         }
 
-
         const existingConversations = await prismadb.conversation.findMany({
-            where:{
-                OR:[
+            where: {
+                OR: [
                     {
-                        userIds:{
-                            equals:[currentUser.id, userId]
+                        userIds: {
+                            equals: [currentUser.id, userId].filter(id => id !== undefined)
                         }
                     },
                     {
-                        userIds:{
-                            equals:[userId, currentUser.id]
+                        userIds: {
+                            equals: [userId, currentUser.id].filter(id => id !== undefined)
                         }
                     }
                 ]
             }
-
         });
 
         const singleconversation = existingConversations[0];
 
-        if(singleconversation){
+        if (singleconversation) {
             return NextResponse.json(singleconversation);
         }
 
-
         const newConversation = await prismadb.conversation.create({
-            data:{
-                users:{
-                    connect:[
-                        {
-                            id:currentUser.id
-                        },
-                        {
-                            id:userId
-                        }
-                    ]
+            data: {
+                users: {
+                    connect: [
+                        { id: currentUser.id },
+                        { id: userId }
+                    ].filter(user => user.id !== undefined)
                 }
             },
-            include:{
-                users:true
+            include: {
+                users: true
             }
-
-
         });
+        
 
+        if (newConversation && newConversation.users) {
+            newConversation.users.forEach((user) => {
+                if (user.email) {
+                    pusherServer.trigger(user.email, 'conversation:new', newConversation);
+                }
+            });
+        }
 
-        newConversation.users.map((user)=>{
-            if(user.email){
-                pusherServer.trigger(user.email, 'conversation:new', newConversation);
-            }
-        })
-
-        return NextResponse.json(newConversation)
-
+        return NextResponse.json(newConversation);
+    } catch (error) {
+        console.log(error);
+        return new NextResponse("Invalid Error", { status: 500 });
     }
-    catch(error){
-        return new NextResponse("Invalid Error", {status:500});
-
-    }
-    
 }

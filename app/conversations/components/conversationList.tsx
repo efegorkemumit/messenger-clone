@@ -27,7 +27,7 @@ const ConversationList: React.FC<ConversationListProps> =({
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const {isOpen} =useConversation();
+  const {isOpen , conversationId} =useConversation();
 
   const router = useRouter();
   const session = useSession();
@@ -43,33 +43,27 @@ const ConversationList: React.FC<ConversationListProps> =({
     }
     pusherClient.subscribe(pusherKey);
 
-    const updateHandler = (conversation :FullConversationType)=>{
-        setItems((current)=> current.map((currentConversation)=>{
-            if(currentConversation.id === conversation.id){
-                return{
-                    ...currentConversation,
-                    messages:conversation.messages
-                }
-            }
-
-            return currentConversation;
-
-        }))
-    }
-
-    const newHandler = (conversation :FullConversationType)=>{
-
-        setItems((current)=>{
-            if(find(current, {id:conversation.id})){
-                return current;
-            }
-
-            return [conversation, ...current]
-        })
-
-        
-
-    }
+    const updateHandler = (conversation: FullConversationType) => {
+        setItems((current) => current.map((currentConversation) => {
+          if (currentConversation.id === conversation.id) {
+            return {
+              ...currentConversation,
+              messages: conversation.messages
+            };
+          }
+  
+          return currentConversation;
+        }));
+      }
+      const newHandler = (conversation: FullConversationType) => {
+        setItems((current) => {
+          if (find(current, { id: conversation.id })) {
+            return current;
+          }
+  
+          return [conversation, ...current]
+        });
+      }
 
     const removeHandler =  (conversation :FullConversationType)=>{
         setItems((current)=>{

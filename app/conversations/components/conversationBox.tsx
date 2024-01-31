@@ -1,4 +1,4 @@
-import useotherUser from '@/app/hook/action/useOtherUser';
+import useOtherUser from '@/app/hook/action/useOtherUser';
 import { FullConversationType } from '@/app/type'
 import Avatar from '@/components/Avatar';
 import AvatarGroup from '@/components/AvatarGroup';
@@ -18,7 +18,7 @@ const ConversationBox : React.FC<ConversationBoxProps>=({
     data, selected
 }) =>{
 
-  const otherUser = useotherUser(data);
+  const otherUser = useOtherUser(data);
 
   const router = useRouter();
   const session = useSession();
@@ -90,7 +90,7 @@ const ConversationBox : React.FC<ConversationBoxProps>=({
         
         <div className='flex justify-between items-center mb-1'>
           <p className='text-sm font-medium text-gray-500'>
-            {data.name || otherUser.name}
+            {data.name || (otherUser && otherUser.name)}
           </p>
        
      {lastMessage?.createdAt &&(
