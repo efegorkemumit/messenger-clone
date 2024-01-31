@@ -39,7 +39,7 @@ const UserBox:  React.FC<UserBoxProps>=({data})=> {
     <div onClick={handleClick} className='w-full relative flex items-center space-x-3
     bg-white p-3 rounded-lg transition hover:bg-slate-100 cursor-pointer'>
         
-        <Avatar user={data.image}></Avatar>
+        <Avatar user={data}></Avatar>
 
         <div className='min-w-0 flex-1'>
             <div className='focus:outline-none'>
