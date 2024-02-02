@@ -30,12 +30,12 @@ Messenger Clone | Full Stack |  React, Next Js  Prisma Pusher Js MongoDB Tailwin
 
 [VIDEO TUTORIAL] https://youtu.be/LpsY80QBlek
 
-[ Demo ] https://messenger-clone-eight-beta.vercel.app/
 
 
+# VIDEO TUTORIAL 
+Link :  https://youtu.be/LpsY80QBlek
 
-
-# Demo ve Proje Önizlemesi için
+# Demo 
 Link :  https://messenger-clone-eight-beta.vercel.app/
 
 # İndirimli kupon linklerim için 
