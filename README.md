@@ -1,6 +1,10 @@
+<a href="https://youtu.be/LpsY80QBlek" rel="nofollow">
+<img src="https://github.com/efegorkemumit/messenger-clone/raw/master/public/MESSENGER.png" style="max-width: 10%;">
+</a>
+
 
 <a href="https://www.instagram.com/efegorkemumit/" rel="nofollow">
-<img src="https://github.com/efegorkemumit/messenger-clone/blob/master/public/MESSENGER.png" style="max-width: 10%;">
+<img src="https://efegorkemumit.github.io/assets/img/iconss/instagram.png" style="max-width: 10%;">
 </a>
 
 <a href="https://efegorkemumit.com/" rel="nofollow">
